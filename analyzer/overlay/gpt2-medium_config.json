@@ -1,0 +1,8 @@
+{
+    "model_name": "gpt2-medium",
+    "num_layers": 24,
+    "hidden_size": 1024,
+    "num_attention_heads": 16,
+    "ffn_size": 4096,
+    "vocab_size": 50257
+}

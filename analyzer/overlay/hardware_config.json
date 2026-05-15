@@ -1,0 +1,13 @@
+{
+  "Alveo_U280": {
+    "name": "Alveo U280",
+    "total_macs": 1024,
+    "frequency_hz": 245000000,
+    "on_chip_mem_bytes": 42991616,
+    "num_bram_blocks": 4032,
+    "on_chip_mem_ports_per_block": 2,
+    "on_chip_mem_bw_per_port_bits_per_cycle": 36,
+    "off_chip_mem_bw_bytes_per_sec": 460000000000
+    }
+  }
+
