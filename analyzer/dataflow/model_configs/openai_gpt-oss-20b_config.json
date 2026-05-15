@@ -1,0 +1,13 @@
+{
+    "model_name": "openai/gpt-oss-20b",
+    "num_layers": 24,
+    "hidden_size": 2880,
+    "ffn_size": 2880,
+    "vocab_size": 201088,
+    "num_attention_heads": 64,
+    "num_kv_heads": 8,
+    "head_dim": 64,
+    "sliding_window": 128,
+    "num_experts": 32,
+    "num_active_experts": 4
+}

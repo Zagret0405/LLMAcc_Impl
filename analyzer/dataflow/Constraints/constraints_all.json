@@ -1,0 +1,289 @@
+{
+    "32": {
+        "seq_len": 32,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    },
+    "64": {
+        "seq_len": 64,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    },
+    "128": {
+        "seq_len": 128,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    },
+    "256": {
+        "seq_len": 256,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    },
+    "512": {
+        "seq_len": 512,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    },
+    "1024": {
+        "seq_len": 1024,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    },
+    "2048": {
+        "seq_len": 2048,
+        "variables": [
+            "attn_norm",
+            "K_proj",
+            "V_proj",
+            "K_rope",
+            "Q_proj",
+            "Q_rope",
+            "attn_scores_qk",
+            "attn_softmax",
+            "attn_context_wv",
+            "O_proj",
+            "attn_add",
+            "moe_norm",
+            "moe_router",
+            "moe_expert_gate",
+            "moe_expert_up",
+            "moe_expert_mul",
+            "moe_expert_down",
+            "moe_add"
+        ],
+        "constraints": [
+            {
+                "name": "total_macs_budget",
+                "expr": "attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024"
+            },
+            {
+                "name": "offchip_bandwidth",
+                "expr": "245000000.0 * moe_expert_gate + 245000000.0 * moe_expert_down + 245000000.0 * moe_expert_up + 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * O_proj + 245000000.0 * Q_proj + 245000000.0 * K_proj <= 493921239040.0"
+            },
+            {
+                "name": "bram_capacity",
+                "expr": "0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0"
+            }
+        ],
+        "parameters": {
+            "num_layers": 24,
+            "layers_per_fpga": 1
+        }
+    }
+}

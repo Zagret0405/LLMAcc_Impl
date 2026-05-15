@@ -1,0 +1,173 @@
+{
+  "model_name": "GPT-OSS",
+  "dimensions": {
+    "D_MODEL": "model.hidden_size",
+    "D_FFN": "model.ffn_size",
+    "D_HEAD": "model.head_dim",
+    "NUM_HEADS": "model.num_attention_heads",
+    "NUM_KV_HEADS": "model.num_kv_heads",
+    "SEQ_LEN": "config.seq_len",
+    "WINDOW_SIZE": "model.sliding_window",
+    "NUM_EXPERTS": "model.num_experts",
+    "NUM_ACTIVE_EXPERTS": "model.num_active_experts"
+  },
+  "layer_graph": {
+    "inputs": ["x_layer_in"],
+    "outputs": ["x_layer_out"],
+    "nodes": [
+      {
+        "name": "attn_norm",
+        "type": "LayerNorm",
+        "inputs": [{"source": "x_layer_in", "type": "streaming"}],
+        "deployment": "spatial"
+      },
+      
+      {
+        "name": "K_proj",
+        "type": "Linear",
+        "inputs": [{"source": "attn_norm", "type": "streaming"}],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_MODEL", "d_out": "NUM_KV_HEADS * D_HEAD"},
+        "require_offchip_memory": true,
+        "caches_output": "kv_cache",
+        "deployment": "spatial"
+      },
+      {
+        "name": "V_proj",
+        "type": "Linear",
+        "inputs": [{"source": "attn_norm", "type": "streaming"}],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_MODEL", "d_out": "NUM_KV_HEADS * D_HEAD"},
+        "require_offchip_memory": true,
+        "caches_output": "kv_cache",
+        "deployment": "spatial"
+      },
+      {
+        "name": "K_rope",
+        "type": "RoPE",
+        "inputs": [{"source": "K_proj", "type": "streaming"}],
+        "deployment": "spatial"
+      },
+      {
+        "name": "Q_proj",
+        "type": "Linear",
+        "inputs": [
+            {"source": "K_proj", "type": "blocking"},
+            {"source": "V_proj", "type": "blocking"}
+        ],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_MODEL", "d_out": "D_MODEL"},
+        "require_offchip_memory": true,
+        "deployment": "spatial"
+      },
+      {
+        "name": "Q_rope",
+        "type": "RoPE",
+        "inputs": [{"source": "Q_proj", "type": "streaming"}],
+        "deployment": "spatial"
+      },
+      {
+        "name": "attn_scores_qk",
+        "type": "BatchMatmul",
+        "inputs": [
+            {"source": "Q_rope", "type": "streaming"},
+            {"source": "K_rope", "type": "blocking"}
+        ],
+        "mac_calc": {"m": "SEQ_LEN", "k": "D_HEAD", "n": "WINDOW_SIZE", "b": "NUM_HEADS"},
+        "deployment": "spatial"
+      },
+      {
+        "name": "attn_softmax",
+        "type": "Softmax",
+        "inputs": [{"source": "attn_scores_qk", "type": "streaming"}],
+        "deployment": "spatial"
+      },
+      {
+        "name": "attn_context_wv",
+        "type": "BatchMatmul",
+        "inputs": [
+            {"source": "attn_softmax", "type": "streaming"},
+            {"source": "V_proj", "type": "blocking"}
+        ],
+        "mac_calc": {"m": "SEQ_LEN", "k": "WINDOW_SIZE", "n": "D_HEAD", "b": "NUM_HEADS"},
+        "deployment": "spatial"
+      },
+      {
+        "name": "O_proj",
+        "type": "Linear",
+        "inputs": [{"source": "attn_context_wv", "type": "streaming"}],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_MODEL", "d_out": "D_MODEL"},
+        "require_offchip_memory": true,
+        "deployment": "spatial"
+      },
+      {
+        "name": "attn_add",
+        "type": "Add",
+        "inputs": [
+            {"source": "x_layer_in", "type": "blocking"},
+            {"source": "O_proj", "type": "streaming"}
+        ],
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_norm",
+        "type": "LayerNorm",
+        "inputs": [{"source": "attn_add", "type": "streaming"}],
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_router",
+        "type": "Linear",
+        "inputs": [{"source": "moe_norm", "type": "streaming"}],
+        "require_offchip_memory": true,
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_expert_gate",
+        "type": "Linear",
+        "inputs": [
+          {"source": "moe_router", "type": "streaming"},
+          {"source": "moe_norm", "type": "streaming"}
+        ],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_MODEL", "d_out": "D_FFN", "b":"NUM_ACTIVE_EXPERTS"},
+        "require_offchip_memory": true,
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_expert_up",
+        "type": "Linear",
+        "inputs": [
+          {"source": "moe_router", "type": "streaming"},
+          {"source": "moe_norm", "type": "streaming"}
+        ],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_MODEL", "d_out": "D_FFN", "b": "NUM_ACTIVE_EXPERTS"},
+        "require_offchip_memory": true,
+        "requires_input_buffer": true,
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_expert_mul",
+        "type": "ElementwiseMul",
+        "inputs": [
+            {"source": "moe_expert_gate", "type": "streaming"},
+            {"source": "moe_expert_up", "type": "streaming"}
+        ],
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_expert_down",
+        "type": "Linear",
+        "inputs": [{"source": "moe_expert_mul", "type": "streaming"}],
+        "mac_calc": {"l": "SEQ_LEN", "d_in": "D_FFN", "d_out": "D_MODEL", "b": "NUM_ACTIVE_EXPERTS"},
+        "require_offchip_memory": true,
+        "deployment": "spatial"
+      },
+      {
+        "name": "moe_add",
+        "type": "Add",
+        "inputs": [
+            {"source": "attn_add", "type": "blocking"},
+            {"source": "moe_expert_down", "type": "blocking"}
+        ],
+        "deployment": "spatial"
+      }
+    ]
+  }
+}

@@ -1,0 +1,378 @@
+
+========== New Run: seq_len = 32 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 67108864.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 33554432.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 1048576.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 1048576.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 33554432.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 134217728.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 134217728.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 199729.2608696148
+Node: K_proj, MACs: 33554432
+Node: V_proj, Start Cycle: 1, End Cycle: 199729.26086961472
+Node: V_proj, MACs: 33554432
+Node: Q_proj, Start Cycle: 199729.2608696148, End Cycle: 399457.5217395122
+Node: Q_proj, MACs: 33554432
+Node: attn_scores_qk, Start Cycle: 199730.2608696148, End Cycle: 399458.5217395122
+Node: attn_scores_qk, MACs: 1048576
+Node: attn_softmax, Start Cycle: 199731.2608696148, End Cycle: 399459.5217395122
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 199732.2608696148, End Cycle: 399460.5217395122
+Node: attn_context_wv, MACs: 1048576
+Node: O_proj, Start Cycle: 199733.2608696148, End Cycle: 399461.5217395122
+Node: O_proj, MACs: 33554432
+Node: attn_add, Start Cycle: 199734.2608696148, End Cycle: 399462.5217395122
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 199735.2608696148, End Cycle: 399463.5217395122
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 199736.2608696148, End Cycle: 399464.5217395122
+Node: ffn_up, MACs: 134217728
+Node: ffn_down, Start Cycle: 199737.2608696148, End Cycle: 399465.5217395122
+Node: ffn_down, MACs: 134217728
+Node: _out, Start Cycle: 399465.5217395122, End Cycle: 399466.5217395122
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.00042144213515
+FU: V_proj, M: 168.00042144213523
+FU: Q_proj, M: 168.0004214418975
+FU: attn_scores_qk, M: 5.840312293395692
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 5.840312293395692
+FU: O_proj, M: 168.0004214418975
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.0016857690161
+FU: ffn_down, M: 672.0016857690161
+FU: _out, M: 0.0
+Final Latency: 0.03913141437448283
+
+========== New Run: seq_len = 64 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 134217728.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 67108864.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 4194304.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 4194304.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 67108864.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 268435456.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 268435456.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 399457.52173917997
+Node: K_proj, MACs: 67108864
+Node: V_proj, Start Cycle: 1, End Cycle: 399457.52173917985
+Node: V_proj, MACs: 67108864
+Node: Q_proj, Start Cycle: 399457.52173917997, End Cycle: 798914.0434786425
+Node: Q_proj, MACs: 67108864
+Node: attn_scores_qk, Start Cycle: 399458.52173917997, End Cycle: 798915.0434786425
+Node: attn_scores_qk, MACs: 4194304
+Node: attn_softmax, Start Cycle: 399459.52173917997, End Cycle: 798916.0434786425
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 399460.52173917997, End Cycle: 798917.0434786425
+Node: attn_context_wv, MACs: 4194304
+Node: O_proj, Start Cycle: 399461.52173917997, End Cycle: 798918.0434786425
+Node: O_proj, MACs: 67108864
+Node: attn_add, Start Cycle: 399462.52173917997, End Cycle: 798919.0434786425
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 399463.52173917997, End Cycle: 798920.0434786425
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 399464.52173917997, End Cycle: 798921.0434786425
+Node: ffn_up, MACs: 268435456
+Node: ffn_down, Start Cycle: 399465.52173917997, End Cycle: 798922.0434786425
+Node: ffn_down, MACs: 268435456
+Node: _out, Start Cycle: 798922.0434786425, End Cycle: 798923.0434786425
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.00042144215604
+FU: V_proj, M: 168.0004214421561
+FU: Q_proj, M: 168.0004214420372
+FU: attn_scores_qk, M: 10.529938050620357
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 10.529938050620357
+FU: O_proj, M: 168.0004214420372
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.001685768862
+FU: ffn_down, M: 672.001685768862
+FU: _out, M: 0.0
+Final Latency: 0.0782618491570915
+
+========== New Run: seq_len = 128 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 268435456.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 134217728.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 16777216.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 16777216.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 134217728.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 536870912.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 536870912.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 798914.0434783103
+Node: K_proj, MACs: 134217728
+Node: V_proj, Start Cycle: 1, End Cycle: 798914.0434783105
+Node: V_proj, MACs: 134217728
+Node: Q_proj, Start Cycle: 798914.0434783103, End Cycle: 1597827.0869569033
+Node: Q_proj, MACs: 134217728
+Node: attn_scores_qk, Start Cycle: 798915.0434783103, End Cycle: 1597828.0869569033
+Node: attn_scores_qk, MACs: 16777216
+Node: attn_softmax, Start Cycle: 798916.0434783103, End Cycle: 1597829.0869569033
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 798917.0434783103, End Cycle: 1597830.0869569033
+Node: attn_context_wv, MACs: 16777216
+Node: O_proj, Start Cycle: 798918.0434783103, End Cycle: 1597831.0869569033
+Node: O_proj, MACs: 134217728
+Node: attn_add, Start Cycle: 798919.0434783103, End Cycle: 1597832.0869569033
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 798920.0434783103, End Cycle: 1597833.0869569033
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 798921.0434783103, End Cycle: 1597834.0869569033
+Node: ffn_up, MACs: 536870912
+Node: ffn_down, Start Cycle: 798922.0434783103, End Cycle: 1597835.0869569033
+Node: ffn_down, MACs: 536870912
+Node: _out, Start Cycle: 1597835.0869569033, End Cycle: 1597836.0869569033
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.00042144216647
+FU: V_proj, M: 168.00042144216644
+FU: Q_proj, M: 168.00042144210704
+FU: attn_scores_qk, M: 21.125965430269787
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 21.125965430269787
+FU: O_proj, M: 168.00042144210704
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.0016857687847
+FU: ffn_down, M: 672.0016857687847
+FU: _out, M: 0.0
+Final Latency: 0.1565227187223089
+
+========== New Run: seq_len = 256 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 536870912.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 268435456.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 67108864.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 67108864.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 268435456.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 1073741824.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 1073741824.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 1597827.0869565709
+Node: K_proj, MACs: 268435456
+Node: V_proj, Start Cycle: 1, End Cycle: 1597827.086956571
+Node: V_proj, MACs: 268435456
+Node: Q_proj, Start Cycle: 1597827.0869565709, End Cycle: 3195653.1739134244
+Node: Q_proj, MACs: 268435456
+Node: attn_scores_qk, Start Cycle: 1597828.0869565709, End Cycle: 3195654.1739134244
+Node: attn_scores_qk, MACs: 67108864
+Node: attn_softmax, Start Cycle: 1597829.0869565709, End Cycle: 3195655.1739134244
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 1597830.0869565709, End Cycle: 3195656.1739134244
+Node: attn_context_wv, MACs: 67108864
+Node: O_proj, Start Cycle: 1597831.0869565709, End Cycle: 3195657.1739134244
+Node: O_proj, MACs: 268435456
+Node: attn_add, Start Cycle: 1597832.0869565709, End Cycle: 3195658.1739134244
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 1597833.0869565709, End Cycle: 3195659.1739134244
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 1597834.0869565709, End Cycle: 3195660.1739134244
+Node: ffn_up, MACs: 1073741824
+Node: ffn_down, Start Cycle: 1597835.0869565709, End Cycle: 3195661.1739134244
+Node: ffn_down, MACs: 1073741824
+Node: _out, Start Cycle: 3195661.1739134244, End Cycle: 3195662.1739134244
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.0004214421717
+FU: V_proj, M: 168.00042144217167
+FU: Q_proj, M: 168.000421442142
+FU: attn_scores_qk, M: 42.06278281564733
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 42.06278281564733
+FU: O_proj, M: 168.000421442142
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.0016857687463
+FU: ffn_down, M: 672.0016857687463
+FU: _out, M: 0.0
+Final Latency: 0.3130444578527436
+
+========== New Run: seq_len = 512 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 1073741824.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 536870912.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 268435456.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 268435456.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 536870912.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 2147483648.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 2147483648.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 3195653.173913092
+Node: K_proj, MACs: 536870912
+Node: V_proj, Start Cycle: 1, End Cycle: 3195653.173913092
+Node: V_proj, MACs: 536870912
+Node: Q_proj, Start Cycle: 3195653.173913092, End Cycle: 6391305.347826467
+Node: Q_proj, MACs: 536870912
+Node: attn_scores_qk, Start Cycle: 3195654.173913092, End Cycle: 6391306.347826467
+Node: attn_scores_qk, MACs: 268435456
+Node: attn_softmax, Start Cycle: 3195655.173913092, End Cycle: 6391307.347826467
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 3195656.173913092, End Cycle: 6391308.347826467
+Node: attn_context_wv, MACs: 268435456
+Node: O_proj, Start Cycle: 3195657.173913092, End Cycle: 6391309.347826467
+Node: O_proj, MACs: 536870912
+Node: attn_add, Start Cycle: 3195658.173913092, End Cycle: 6391310.347826467
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 3195659.173913092, End Cycle: 6391311.347826467
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 3195660.173913092, End Cycle: 6391312.347826467
+Node: ffn_up, MACs: 2147483648
+Node: ffn_down, Start Cycle: 3195661.173913092, End Cycle: 6391313.347826467
+Node: ffn_down, MACs: 2147483648
+Node: _out, Start Cycle: 6391313.347826467, End Cycle: 6391314.347826467
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.00042144217431
+FU: V_proj, M: 168.00042144217431
+FU: Q_proj, M: 168.00042144215945
+FU: attn_scores_qk, M: 84.03151468434368
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 84.03151468434368
+FU: O_proj, M: 168.00042144215945
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.0016857687269
+FU: ffn_down, M: 672.0016857687269
+FU: _out, M: 0.0
+Final Latency: 0.6260879361136131
+
+========== New Run: seq_len = 1024 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 2147483648.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 1073741824.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 1073741824.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 1073741824.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 1073741824.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 4294967296.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 4294967296.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 6391305.3478261335
+Node: K_proj, MACs: 1073741824
+Node: V_proj, Start Cycle: 1, End Cycle: 6391305.3478261335
+Node: V_proj, MACs: 1073741824
+Node: Q_proj, Start Cycle: 6391305.3478261335, End Cycle: 12782609.69565255
+Node: Q_proj, MACs: 1073741824
+Node: attn_scores_qk, Start Cycle: 6391306.3478261335, End Cycle: 12782610.69565255
+Node: attn_scores_qk, MACs: 1073741824
+Node: attn_softmax, Start Cycle: 6391307.3478261335, End Cycle: 12782611.69565255
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 6391308.3478261335, End Cycle: 12782612.69565255
+Node: attn_context_wv, MACs: 1073741824
+Node: O_proj, Start Cycle: 6391309.3478261335, End Cycle: 12782613.69565255
+Node: O_proj, MACs: 1073741824
+Node: attn_add, Start Cycle: 6391310.3478261335, End Cycle: 12782614.69565255
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 6391311.3478261335, End Cycle: 12782615.69565255
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 6391312.3478261335, End Cycle: 12782616.69565255
+Node: ffn_up, MACs: 4294967296
+Node: ffn_down, Start Cycle: 6391313.3478261335, End Cycle: 12782617.69565255
+Node: ffn_down, MACs: 4294967296
+Node: _out, Start Cycle: 12782617.69565255, End Cycle: 12782618.69565255
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.00042144217565
+FU: V_proj, M: 168.00042144217565
+FU: Q_proj, M: 168.0004214421682
+FU: attn_scores_qk, M: 168.01606910398218
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 168.01606910398218
+FU: O_proj, M: 168.0004214421682
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.0016857687174
+FU: ffn_down, M: 672.0016857687174
+FU: _out, M: 0.0
+Final Latency: 1.2521748926353518
+
+========== New Run: seq_len = 2048 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + Q_proj + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + ffn_norm + ffn_up + ffn_down + _out <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * ffn_up + 245000000.0 * ffn_down + 245000000.0 * V_proj + 245000000.0 * O_proj <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * Q_proj + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * ffn_norm + 0.25 * ffn_up + 0.25 * ffn_down + 0.25 * _out <= 4032.0
+Constraint: stage_balance_1, Expr: 4294967296.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 2147483648.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_3, Expr: 4294967296.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_5, Expr: 4294967296.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_6, Expr: 2147483648.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_9, Expr: 8589934592.0 <= T * sum(M[['ffn_up']])
+Constraint: stage_balance_10, Expr: 8589934592.0 <= T * sum(M[['ffn_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 12782609.695652222
+Node: K_proj, MACs: 2147483648
+Node: V_proj, Start Cycle: 1, End Cycle: 12782609.695652224
+Node: V_proj, MACs: 2147483648
+Node: Q_proj, Start Cycle: 12782609.695652222, End Cycle: 25565218.391304724
+Node: Q_proj, MACs: 2147483648
+Node: attn_scores_qk, Start Cycle: 12782610.695652222, End Cycle: 25565219.391304724
+Node: attn_scores_qk, MACs: 4294967296
+Node: attn_softmax, Start Cycle: 12782611.695652222, End Cycle: 25565220.391304724
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 12782612.695652222, End Cycle: 25565221.391304724
+Node: attn_context_wv, MACs: 4294967296
+Node: O_proj, Start Cycle: 12782613.695652222, End Cycle: 25565222.391304724
+Node: O_proj, MACs: 2147483648
+Node: attn_add, Start Cycle: 12782614.695652222, End Cycle: 25565223.391304724
+Node: attn_add, MACs: 0
+Node: ffn_norm, Start Cycle: 12782615.695652222, End Cycle: 25565224.391304724
+Node: ffn_norm, MACs: 0
+Node: ffn_up, Start Cycle: 12782616.695652222, End Cycle: 25565225.391304724
+Node: ffn_up, MACs: 8589934592
+Node: ffn_down, Start Cycle: 12782617.695652222, End Cycle: 25565226.391304724
+Node: ffn_down, MACs: 8589934592
+Node: _out, Start Cycle: 25565226.391304724, End Cycle: 25565227.391304724
+Node: _out, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 168.00042144217625
+FU: V_proj, M: 168.00042144217622
+FU: Q_proj, M: 168.00042144217255
+FU: attn_scores_qk, M: 336.0086661816896
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 336.0086661816896
+FU: O_proj, M: 168.00042144217255
+FU: attn_add, M: 0.0
+FU: ffn_norm, M: 0.0
+FU: ffn_up, M: 672.0016857687124
+FU: ffn_down, M: 672.0016857687124
+FU: _out, M: 0.0
+Final Latency: 2.5043488056788297

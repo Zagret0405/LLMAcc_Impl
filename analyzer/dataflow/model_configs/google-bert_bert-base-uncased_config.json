@@ -1,0 +1,13 @@
+{
+    "model_name": "google-bert/bert-base-uncased",
+    "num_layers": 12,
+    "hidden_size": 768,
+    "ffn_size": 3072,
+    "vocab_size": 30522,
+    "num_attention_heads": 12,
+    "num_kv_heads": 12,
+    "head_dim": 64.0,
+    "sliding_window": null,
+    "num_experts": 1,
+    "num_active_experts": 1
+}

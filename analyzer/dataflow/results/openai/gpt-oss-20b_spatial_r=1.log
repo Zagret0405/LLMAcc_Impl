@@ -1,0 +1,483 @@
+
+========== New Run: seq_len = 32 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 94371840.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 265420800.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 16777216.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 16777216.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 265420800.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 2123366400.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 1061683200.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 1890007.6873318308
+Node: K_proj, MACs: 47185920
+Node: V_proj, Start Cycle: 1, End Cycle: 1890007.6873318308
+Node: V_proj, MACs: 47185920
+Node: K_rope, Start Cycle: 2, End Cycle: 1890008.6873318308
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 1890007.6873318308, End Cycle: 3780014.3746624365
+Node: Q_proj, MACs: 265420800
+Node: Q_rope, Start Cycle: 1890008.6873318308, End Cycle: 3780015.3746624365
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 1890009.6873318308, End Cycle: 3780016.3746624365
+Node: attn_scores_qk, MACs: 16777216
+Node: attn_softmax, Start Cycle: 1890010.6873318308, End Cycle: 3780017.3746624365
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 1890011.6873318308, End Cycle: 3780018.3746624365
+Node: attn_context_wv, MACs: 16777216
+Node: O_proj, Start Cycle: 1890012.6873318308, End Cycle: 3780019.3746624365
+Node: O_proj, MACs: 265420800
+Node: attn_add, Start Cycle: 1890013.6873318308, End Cycle: 3780020.3746624365
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 1890014.6873318308, End Cycle: 3780021.3746624365
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 1890015.6873318308, End Cycle: 3780022.3746624365
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 1890016.6873318308, End Cycle: 3780023.3746624365
+Node: moe_expert_gate, MACs: 1061683200
+Node: moe_expert_up, Start Cycle: 1890016.6873318308, End Cycle: 3780023.3746624365
+Node: moe_expert_up, MACs: 1061683200
+Node: moe_expert_mul, Start Cycle: 1890017.6873318308, End Cycle: 3780024.3746624365
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 1890018.6873318308, End Cycle: 3780025.3746624365
+Node: moe_expert_down, MACs: 1061683200
+Node: moe_add, Start Cycle: 3780025.3746624365, End Cycle: 3780026.3746624365
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 24.966006901601776
+FU: V_proj, M: 24.966006901601776
+FU: K_rope, M: 0.0
+FU: Q_proj, M: 140.43378882160104
+FU: Q_rope, M: 0.0
+FU: attn_scores_qk, M: 8.930027522564805
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 8.930027522564805
+FU: O_proj, M: 140.43378882160104
+FU: attn_add, M: 0.0
+FU: moe_norm, M: 0.0
+FU: moe_router, M: 0.0
+FU: moe_expert_gate, M: 561.7351552865822
+FU: moe_expert_up, M: 561.7351552865779
+FU: moe_expert_mul, M: 0.0
+FU: moe_expert_down, M: 561.7351552865549
+FU: moe_add, M: 0.0
+Final Latency: 0.3702882979261162
+
+========== New Run: seq_len = 64 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 188743680.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 530841600.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 33554432.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 33554432.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 530841600.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 4246732800.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 2123366400.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 3780014.3746619937
+Node: K_proj, MACs: 94371840
+Node: V_proj, Start Cycle: 1, End Cycle: 3780014.374661993
+Node: V_proj, MACs: 94371840
+Node: K_rope, Start Cycle: 2, End Cycle: 3780015.3746619937
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 3780014.3746619937, End Cycle: 7560027.749322763
+Node: Q_proj, MACs: 530841600
+Node: Q_rope, Start Cycle: 3780015.3746619937, End Cycle: 7560028.749322763
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 3780016.3746619937, End Cycle: 7560029.749322763
+Node: attn_scores_qk, MACs: 33554432
+Node: attn_softmax, Start Cycle: 3780017.3746619937, End Cycle: 7560030.749322763
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 3780018.3746619937, End Cycle: 7560031.749322763
+Node: attn_context_wv, MACs: 33554432
+Node: O_proj, Start Cycle: 3780019.3746619937, End Cycle: 7560032.749322763
+Node: O_proj, MACs: 530841600
+Node: attn_add, Start Cycle: 3780020.3746619937, End Cycle: 7560033.749322763
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 3780021.3746619937, End Cycle: 7560034.749322763
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 3780022.3746619937, End Cycle: 7560035.749322763
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 3780023.3746619937, End Cycle: 7560036.749322763
+Node: moe_expert_gate, MACs: 2123366400
+Node: moe_expert_up, Start Cycle: 3780023.3746619937, End Cycle: 7560036.749322763
+Node: moe_expert_up, MACs: 2123366400
+Node: moe_expert_mul, Start Cycle: 3780024.3746619937, End Cycle: 7560037.749322763
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 3780025.3746619937, End Cycle: 7560038.749322763
+Node: moe_expert_down, MACs: 2123366400
+Node: moe_add, Start Cycle: 7560038.749322763, End Cycle: 7560039.749322763
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 24.966006901612793
+FU: V_proj, M: 24.9660069016128
+FU: K_rope, M: 0.0
+FU: Q_proj, M: 140.43378882161747
+FU: Q_rope, M: 0.0
+FU: attn_scores_qk, M: 8.90333607896838
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 8.90333607896838
+FU: O_proj, M: 140.43378882161747
+FU: attn_add, M: 0.0
+FU: moe_norm, M: 0.0
+FU: moe_router, M: 0.0
+FU: moe_expert_gate, M: 561.7351552865579
+FU: moe_expert_up, M: 561.735155286558
+FU: moe_expert_mul, M: 0.0
+FU: moe_expert_down, M: 561.7351552865453
+FU: moe_add, M: 0.0
+Final Latency: 0.7405753223826379
+
+========== New Run: seq_len = 128 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 377487360.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 1061683200.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 67108864.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 67108864.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 1061683200.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 8493465600.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 4246732800.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 7560027.7493223185
+Node: K_proj, MACs: 188743680
+Node: V_proj, Start Cycle: 1, End Cycle: 7560027.7493223185
+Node: V_proj, MACs: 188743680
+Node: K_rope, Start Cycle: 2, End Cycle: 7560028.7493223185
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 7560027.7493223185, End Cycle: 15120054.498643413
+Node: Q_proj, MACs: 1061683200
+Node: Q_rope, Start Cycle: 7560028.7493223185, End Cycle: 15120055.498643413
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 7560029.7493223185, End Cycle: 15120056.498643413
+Node: attn_scores_qk, MACs: 67108864
+Node: attn_softmax, Start Cycle: 7560030.7493223185, End Cycle: 15120057.498643413
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 7560031.7493223185, End Cycle: 15120058.498643413
+Node: attn_context_wv, MACs: 67108864
+Node: O_proj, Start Cycle: 7560032.7493223185, End Cycle: 15120059.498643413
+Node: O_proj, MACs: 1061683200
+Node: attn_add, Start Cycle: 7560033.7493223185, End Cycle: 15120060.498643413
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 7560034.7493223185, End Cycle: 15120061.498643413
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 7560035.7493223185, End Cycle: 15120062.498643413
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 7560036.7493223185, End Cycle: 15120063.498643413
+Node: moe_expert_gate, MACs: 4246732800
+Node: moe_expert_up, Start Cycle: 7560036.7493223185, End Cycle: 15120063.498643413
+Node: moe_expert_up, MACs: 4246732800
+Node: moe_expert_mul, Start Cycle: 7560037.7493223185, End Cycle: 15120064.498643413
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 7560038.7493223185, End Cycle: 15120065.498643413
+Node: moe_expert_down, MACs: 4246732800
+Node: moe_add, Start Cycle: 15120065.498643413, End Cycle: 15120066.498643413
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 24.966006901618304
+FU: V_proj, M: 24.966006901618304
+FU: K_rope, M: 0.0
+FU: Q_proj, M: 140.4337888216257
+FU: Q_rope, M: 0.0
+FU: attn_scores_qk, M: 8.890049593623152
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 8.890049593623152
+FU: O_proj, M: 140.4337888216257
+FU: attn_add, M: 0.0
+FU: moe_norm, M: 0.0
+FU: moe_router, M: 0.0
+FU: moe_expert_gate, M: 561.735155286547
+FU: moe_expert_up, M: 561.7351552865468
+FU: moe_expert_mul, M: 0.0
+FU: moe_expert_down, M: 561.7351552865406
+FU: moe_add, M: 0.0
+Final Latency: 1.4811493712956814
+
+========== New Run: seq_len = 256 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 754974720.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 2123366400.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 134217728.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 134217728.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 2123366400.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 16986931200.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 8493465600.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 15120054.49864293
+Node: K_proj, MACs: 377487360
+Node: V_proj, Start Cycle: 1, End Cycle: 15120054.49864293
+Node: V_proj, MACs: 377487360
+Node: K_rope, Start Cycle: 2, End Cycle: 15120055.49864293
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 15120054.49864293, End Cycle: 30240107.997284662
+Node: Q_proj, MACs: 2123366400
+Node: Q_rope, Start Cycle: 15120055.49864293, End Cycle: 30240108.997284662
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 15120056.49864293, End Cycle: 30240109.997284662
+Node: attn_scores_qk, MACs: 134217728
+Node: attn_softmax, Start Cycle: 15120057.49864293, End Cycle: 30240110.997284662
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 15120058.49864293, End Cycle: 30240111.997284662
+Node: attn_context_wv, MACs: 134217728
+Node: O_proj, Start Cycle: 15120059.49864293, End Cycle: 30240112.997284662
+Node: O_proj, MACs: 2123366400
+Node: attn_add, Start Cycle: 15120060.49864293, End Cycle: 30240113.997284662
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 15120061.49864293, End Cycle: 30240114.997284662
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 15120062.49864293, End Cycle: 30240115.997284662
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 15120063.49864293, End Cycle: 30240116.997284662
+Node: moe_expert_gate, MACs: 8493465600
+Node: moe_expert_up, Start Cycle: 15120063.49864293, End Cycle: 30240116.997284662
+Node: moe_expert_up, MACs: 8493465600
+Node: moe_expert_mul, Start Cycle: 15120064.49864293, End Cycle: 30240117.997284662
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 15120065.49864293, End Cycle: 30240118.997284662
+Node: moe_expert_down, MACs: 8493465600
+Node: moe_add, Start Cycle: 30240118.997284662, End Cycle: 30240119.997284662
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 24.96600690162112
+FU: V_proj, M: 24.96600690162112
+FU: K_rope, M: 0.0
+FU: Q_proj, M: 140.43378882162995
+FU: Q_rope, M: 0.0
+FU: attn_scores_qk, M: 8.88342273884068
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 8.88342273884068
+FU: O_proj, M: 140.43378882162995
+FU: attn_add, M: 0.0
+FU: moe_norm, M: 0.0
+FU: moe_router, M: 0.0
+FU: moe_expert_gate, M: 561.7351552865413
+FU: moe_expert_up, M: 561.7351552865414
+FU: moe_expert_mul, M: 0.0
+FU: moe_expert_down, M: 561.7351552865382
+FU: moe_add, M: 0.0
+Final Latency: 2.9622974691217627
+
+========== New Run: seq_len = 512 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 1509949440.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 4246732800.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 268435456.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 268435456.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 4246732800.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 33973862400.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 16986931200.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 30240107.997284267
+Node: K_proj, MACs: 754974720
+Node: V_proj, Start Cycle: 1, End Cycle: 30240107.997284267
+Node: V_proj, MACs: 754974720
+Node: K_rope, Start Cycle: 2, End Cycle: 30240108.997284267
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 30240107.997284267, End Cycle: 60480214.99456732
+Node: Q_proj, MACs: 4246732800
+Node: Q_rope, Start Cycle: 30240108.997284267, End Cycle: 60480215.99456732
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 30240109.997284267, End Cycle: 60480216.99456732
+Node: attn_scores_qk, MACs: 268435456
+Node: attn_softmax, Start Cycle: 30240110.997284267, End Cycle: 60480217.99456732
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 30240111.997284267, End Cycle: 60480218.99456732
+Node: attn_context_wv, MACs: 268435456
+Node: O_proj, Start Cycle: 30240112.997284267, End Cycle: 60480219.99456732
+Node: O_proj, MACs: 4246732800
+Node: attn_add, Start Cycle: 30240113.997284267, End Cycle: 60480220.99456732
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 30240114.997284267, End Cycle: 60480221.99456732
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 30240115.997284267, End Cycle: 60480222.99456732
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 30240116.997284267, End Cycle: 60480223.99456732
+Node: moe_expert_gate, MACs: 16986931200
+Node: moe_expert_up, Start Cycle: 30240116.997284267, End Cycle: 60480223.99456732
+Node: moe_expert_up, MACs: 16986931200
+Node: moe_expert_mul, Start Cycle: 30240117.997284267, End Cycle: 60480224.99456732
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 30240118.997284267, End Cycle: 60480225.99456732
+Node: moe_expert_down, MACs: 16986931200
+Node: moe_add, Start Cycle: 60480225.99456732, End Cycle: 60480226.99456732
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 24.96600690162244
+FU: V_proj, M: 24.96600690162244
+FU: K_rope, M: 0.0
+FU: Q_proj, M: 140.43378882163188
+FU: Q_rope, M: 0.0
+FU: attn_scores_qk, M: 8.880110550102744
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 8.880110550102744
+FU: O_proj, M: 140.43378882163188
+FU: attn_add, M: 0.0
+FU: moe_norm, M: 0.0
+FU: moe_router, M: 0.0
+FU: moe_expert_gate, M: 561.7351552865385
+FU: moe_expert_up, M: 561.7351552865385
+FU: moe_expert_mul, M: 0.0
+FU: moe_expert_down, M: 561.7351552865371
+FU: moe_add, M: 0.0
+Final Latency: 5.9245936647739414
+
+========== New Run: seq_len = 1024 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 3019898880.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 8493465600.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 536870912.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 536870912.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 8493465600.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 67947724800.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 33973862400.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: warning, Termination: maxIterations
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 16098832.551243477
+Node: K_proj, MACs: 1509949440
+Node: V_proj, Start Cycle: 1, End Cycle: 16098832.551325604
+Node: V_proj, MACs: 1509949440
+Node: K_rope, Start Cycle: 2, End Cycle: 16098833.551243477
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 16098832.551325604, End Cycle: 32196756.13763123
+Node: Q_proj, MACs: 8493465600
+Node: Q_rope, Start Cycle: 16098833.551325604, End Cycle: 32196757.13763123
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 16098834.551325604, End Cycle: 32196758.13763123
+Node: attn_scores_qk, MACs: 536870912
+Node: attn_softmax, Start Cycle: 16098835.551325604, End Cycle: 32196759.13763123
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 16098836.551325604, End Cycle: 32196760.13763123
+Node: attn_context_wv, MACs: 536870912
+Node: O_proj, Start Cycle: 16098837.551325604, End Cycle: 32196761.137631238
+Node: O_proj, MACs: 8493465600
+Node: attn_add, Start Cycle: 16098838.551325604, End Cycle: 32196762.137631238
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 16098839.551325604, End Cycle: 32196763.137631238
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 16098840.551325604, End Cycle: 32196764.137631238
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 16098841.551325604, End Cycle: 32196765.137631238
+Node: moe_expert_gate, MACs: 33973862400
+Node: moe_expert_up, Start Cycle: 16098841.551325604, End Cycle: 32196765.137631238
+Node: moe_expert_up, MACs: 33973862400
+Node: moe_expert_mul, Start Cycle: 16098842.551325604, End Cycle: 32196766.137631238
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 16098843.551325604, End Cycle: 32196767.137631238
+Node: moe_expert_down, MACs: 33973862400
+Node: moe_add, Start Cycle: 32196767.137631238, End Cycle: 32196768.137631238
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 43.88450723555211
+FU: K_proj, M: 93.79248644187294
+FU: V_proj, M: 93.79248644139446
+FU: K_rope, M: 43.88450723555211
+FU: Q_proj, M: 527.6124932798988
+FU: Q_rope, M: 43.88450723555211
+FU: attn_scores_qk, M: 33.36256830644355
+FU: attn_softmax, M: 43.88450723555211
+FU: attn_context_wv, M: 33.36256830644355
+FU: O_proj, M: 527.6124932798984
+FU: attn_add, M: 43.88450723555211
+FU: moe_norm, M: 43.88450723555211
+FU: moe_router, M: 45.47341107692624
+FU: moe_expert_gate, M: 2110.464058494858
+FU: moe_expert_up, M: 2110.464058496254
+FU: moe_expert_mul, M: 43.88450723555206
+FU: moe_expert_down, M: 2110.4638979350593
+FU: moe_add, M: 43.884507235552064
+Final Latency: 3.153969123686325
+
+========== New Run: seq_len = 2048 ==========
+
+Constraint: total_macs_budget, Expr: attn_norm + K_proj + V_proj + K_rope + Q_proj + Q_rope + attn_scores_qk + attn_softmax + attn_context_wv + O_proj + attn_add + moe_norm + moe_router + moe_expert_gate + moe_expert_up + moe_expert_mul + moe_expert_down + moe_add <= 9024
+Constraint: offchip_bandwidth, Expr: 245000000.0 * moe_router + 245000000.0 * V_proj + 245000000.0 * moe_expert_gate + 245000000.0 * Q_proj + 245000000.0 * K_proj + 245000000.0 * moe_expert_up + 245000000.0 * O_proj + 245000000.0 * moe_expert_down <= 493921239040.0
+Constraint: bram_capacity, Expr: 0.25 * attn_norm + 0.25 * K_proj + 0.25 * V_proj + 0.25 * K_rope + 0.25 * Q_proj + 0.25 * Q_rope + 0.25 * attn_scores_qk + 0.25 * attn_softmax + 0.25 * attn_context_wv + 0.25 * O_proj + 0.25 * attn_add + 0.25 * moe_norm + 0.25 * moe_router + 0.25 * moe_expert_gate + 0.25 * moe_expert_up + 0.25 * moe_expert_mul + 0.25 * moe_expert_down + 0.25 * moe_add <= 4032.0
+Constraint: stage_balance_1, Expr: 6039797760.0 <= T * sum(M[['K_proj', 'V_proj']])
+Constraint: stage_balance_2, Expr: 16986931200.0 <= T * sum(M[['Q_proj']])
+Constraint: stage_balance_4, Expr: 1073741824.0 <= T * sum(M[['attn_scores_qk']])
+Constraint: stage_balance_6, Expr: 1073741824.0 <= T * sum(M[['attn_context_wv']])
+Constraint: stage_balance_7, Expr: 16986931200.0 <= T * sum(M[['O_proj']])
+Constraint: stage_balance_11, Expr: 135895449600.0 <= T * sum(M[['moe_expert_gate', 'moe_expert_up']])
+Constraint: stage_balance_13, Expr: 67947724800.0 <= T * sum(M[['moe_expert_down']])
+Solver Status: ok, Termination: optimal
+Node: attn_norm, Start Cycle: 0, End Cycle: 0
+Node: attn_norm, MACs: 0
+Node: K_proj, Start Cycle: 1, End Cycle: 120960428.98913208
+Node: K_proj, MACs: 3019898880
+Node: V_proj, Start Cycle: 1, End Cycle: 120960428.98913199
+Node: V_proj, MACs: 3019898880
+Node: K_rope, Start Cycle: 2, End Cycle: 120960429.98913208
+Node: K_rope, MACs: 0
+Node: Q_proj, Start Cycle: 120960428.98913208, End Cycle: 241920856.9782629
+Node: Q_proj, MACs: 16986931200
+Node: Q_rope, Start Cycle: 120960429.98913208, End Cycle: 241920857.9782629
+Node: Q_rope, MACs: 0
+Node: attn_scores_qk, Start Cycle: 120960430.98913208, End Cycle: 241920858.9782629
+Node: attn_scores_qk, MACs: 1073741824
+Node: attn_softmax, Start Cycle: 120960431.98913208, End Cycle: 241920859.9782629
+Node: attn_softmax, MACs: 0
+Node: attn_context_wv, Start Cycle: 120960432.98913208, End Cycle: 241920860.9782629
+Node: attn_context_wv, MACs: 1073741824
+Node: O_proj, Start Cycle: 120960433.98913208, End Cycle: 241920861.9782629
+Node: O_proj, MACs: 16986931200
+Node: attn_add, Start Cycle: 120960434.98913208, End Cycle: 241920862.9782629
+Node: attn_add, MACs: 0
+Node: moe_norm, Start Cycle: 120960435.98913208, End Cycle: 241920863.9782629
+Node: moe_norm, MACs: 0
+Node: moe_router, Start Cycle: 120960436.98913208, End Cycle: 241920864.9782629
+Node: moe_router, MACs: 0
+Node: moe_expert_gate, Start Cycle: 120960437.98913208, End Cycle: 241920865.9782629
+Node: moe_expert_gate, MACs: 67947724800
+Node: moe_expert_up, Start Cycle: 120960437.98913208, End Cycle: 241920865.97826773
+Node: moe_expert_up, MACs: 67947724800
+Node: moe_expert_mul, Start Cycle: 120960438.98913208, End Cycle: 241920866.97826773
+Node: moe_expert_mul, MACs: 0
+Node: moe_expert_down, Start Cycle: 120960439.98913208, End Cycle: 241920867.97826773
+Node: moe_expert_down, MACs: 67947724800
+Node: moe_add, Start Cycle: 241920867.97826773, End Cycle: 241920868.97826773
+Node: moe_add, MACs: 0
+FU: attn_norm, M: 0.0
+FU: K_proj, M: 24.96600690162347
+FU: V_proj, M: 24.966006901623487
+FU: K_rope, M: 0.0
+FU: Q_proj, M: 140.43378882163347
+FU: Q_rope, M: 0.0
+FU: attn_scores_qk, M: 8.87762924890748
+FU: attn_softmax, M: 0.0
+FU: attn_context_wv, M: 8.877629248907482
+FU: O_proj, M: 140.43378882163347
+FU: attn_add, M: 0.0
+FU: moe_norm, M: 0.0
+FU: moe_router, M: 0.0
+FU: moe_expert_gate, M: 561.7351552865615
+FU: moe_expert_up, M: 561.7351552865115
+FU: moe_expert_mul, M: 0.0
+FU: moe_expert_down, M: 561.735155286536
+FU: moe_add, M: 0.0
+Final Latency: 23.698370838687453

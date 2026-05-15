@@ -1,0 +1,13 @@
+{
+    "model_name": "openai-community/gpt2-medium",
+    "num_layers": 24,
+    "hidden_size": 1024,
+    "ffn_size": 4096,
+    "vocab_size": 50257,
+    "num_attention_heads": 16,
+    "num_kv_heads": 16,
+    "head_dim": 64.0,
+    "sliding_window": null,
+    "num_experts": 1,
+    "num_active_experts": 1
+}

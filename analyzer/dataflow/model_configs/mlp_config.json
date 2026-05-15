@@ -1,0 +1,13 @@
+{
+    "model_name": "simple-mlp",
+    "num_layers": 2,
+    "hidden_size": 768,
+    "ffn_size": 3072,
+    "vocab_size": 50257,
+    "num_attention_heads": 12,
+    "num_kv_heads": 12,
+    "head_dim": 64,
+    "sliding_window": null,
+    "num_experts": 1,
+    "num_active_experts": 1
+}

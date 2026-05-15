@@ -1,0 +1,221 @@
+{
+  "model_name": "GPT-2",
+  "dimensions": {
+    "D_MODEL": "model.hidden_size",
+    "D_FFN": "model.ffn_size",
+    "SEQ_LEN": "config.seq_len"
+  },
+  "layer_graph": {
+    "inputs": [
+      "x_layer_in"
+    ],
+    "outputs": [
+      "x_layer_out"
+    ],
+    "nodes": [
+      {
+        "name": "attn_norm",
+        "type": "LayerNorm",
+        "inputs": [
+          {
+            "source": "x_layer_in",
+            "type": "streaming"
+          }
+        ],
+        "deployment": "temporal"
+      },
+      {
+        "name": "Q_proj",
+        "type": "Linear",
+        "inputs": [
+          {
+            "source": "attn_norm",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "l": "SEQ_LEN",
+          "d_in": "D_MODEL",
+          "d_out": "D_MODEL"
+        },
+        "deployment": "temporal"
+      },
+      {
+        "name": "K_proj",
+        "type": "Linear",
+        "inputs": [
+          {
+            "source": "attn_norm",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "l": "SEQ_LEN",
+          "d_in": "D_MODEL",
+          "d_out": "D_MODEL"
+        },
+        "caches_output": "kv_cache",
+        "deployment": "temporal"
+      },
+      {
+        "name": "V_proj",
+        "type": "Linear",
+        "inputs": [
+          {
+            "source": "attn_norm",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "l": "SEQ_LEN",
+          "d_in": "D_MODEL",
+          "d_out": "D_MODEL"
+        },
+        "caches_output": "kv_cache",
+        "deployment": "temporal"
+      },
+      {
+        "name": "attn_scores_qk",
+        "type": "BatchMatmul",
+        "inputs": [
+          {
+            "source": "Q_proj",
+            "type": "streaming"
+          },
+          {
+            "source": "K_proj",
+            "type": "blocking"
+          }
+        ],
+        "mac_calc": {
+          "m": "SEQ_LEN",
+          "k": "D_MODEL",
+          "n": "SEQ_LEN"
+        },
+        "deployment": "temporal"
+      },
+      {
+        "name": "attn_softmax",
+        "type": "Softmax",
+        "inputs": [
+          {
+            "source": "attn_scores_qk",
+            "type": "streaming"
+          }
+        ],
+        "deployment": "temporal"
+      },
+      {
+        "name": "attn_context_wv",
+        "type": "BatchMatmul",
+        "inputs": [
+          {
+            "source": "attn_softmax",
+            "type": "streaming"
+          },
+          {
+            "source": "V_proj",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "m": "SEQ_LEN",
+          "k": "SEQ_LEN",
+          "n": "D_MODEL"
+        },
+        "deployment": "temporal"
+      },
+      {
+        "name": "O_proj",
+        "type": "Linear",
+        "inputs": [
+          {
+            "source": "attn_context_wv",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "l": "SEQ_LEN",
+          "d_in": "D_MODEL",
+          "d_out": "D_MODEL"
+        },
+        "deployment": "temporal"
+      },
+      {
+        "name": "attn_add",
+        "type": "Add",
+        "inputs": [
+          {
+            "source": "x_layer_in",
+            "type": "blocking"
+          },
+          {
+            "source": "O_proj",
+            "type": "streaming"
+          }
+        ],
+        "deployment": "temporal"
+      },
+      {
+        "name": "ffn_norm",
+        "type": "LayerNorm",
+        "inputs": [
+          {
+            "source": "attn_add",
+            "type": "streaming"
+          }
+        ],
+        "deployment": "temporal"
+      },
+      {
+        "name": "ffn_up",
+        "type": "Linear",
+        "activation": "GELU",
+        "inputs": [
+          {
+            "source": "ffn_norm",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "l": "SEQ_LEN",
+          "d_in": "D_MODEL",
+          "d_out": "D_FFN"
+        },
+        "requires_input_buffer": true,
+        "deployment": "temporal"
+      },
+      {
+        "name": "ffn_down",
+        "type": "Linear",
+        "inputs": [
+          {
+            "source": "ffn_up",
+            "type": "streaming"
+          }
+        ],
+        "mac_calc": {
+          "l": "SEQ_LEN",
+          "d_in": "D_FFN",
+          "d_out": "D_MODEL"
+        },
+        "deployment": "temporal"
+      },
+      {
+        "name": "_out",
+        "type": "Add",
+        "inputs": [
+          {
+            "source": "attn_add",
+            "type": "blocking"
+          },
+          {
+            "source": "ffn_down",
+            "type": "streaming"
+          }
+        ],
+        "deployment": "temporal"
+      }
+    ]
+  }
+}
